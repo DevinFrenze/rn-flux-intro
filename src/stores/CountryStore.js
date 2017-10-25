@@ -1,4 +1,5 @@
 import ActionTypes from '../constants/ActionTypes';
+import CountryCities from '../constants/CountryCities';
 import AppDispatcher from '../AppDispatcher';
 import { ReduceStore } from 'flux/utils';
 
@@ -7,15 +8,20 @@ class CountryStore extends ReduceStore {
 
   // the initial state of the store is defined by you
   getInitialState() {
-    return '';
+    return Object.freeze({
+      selectedCountry: Object.keys(CountryCities)[0],
+      countryOptions: Object.keys(CountryCities),
+    });
   }
 
   // this function responds to the actions relevant to this store
   // and returns the new state
   reduce(state, action) {
-    switch (action.type) {
+    switch (action.actionType) {
       case ActionTypes.SELECTED_COUNTRY:
-        return action.selectedCountry; // this will emit a change
+        return Object.freeze(Object.assign({}, state, {
+          selectedCountry: action.selectedCountry
+        })); // this will emit a change
       default:
         return state; // this will not emit a change
     }

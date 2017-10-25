@@ -1,26 +1,32 @@
 import ActionTypes from '../constants/ActionTypes';
+import CountryCities from '../constants/CountryCities';
 import AppDispatcher from '../AppDispatcher';
-import { Store } from 'flux/utils';
+import CountryStore from './CountryStore';
+import { ReduceStore } from 'flux/utils';
 
-class CityStore extends Store {
-  constructor(dispatcher) {
-    super(dispatcher);
-    this.city = 'Detroit';
+class CityStore extends ReduceStore {
+  getInitialState() {
+    const selectedCountry = CountryStore.getState().selectedCountry;
+    return Object.freeze({
+      selectedCity: CountryCities[selectedCountry][0],
+      cityOptions: CountryCities[selectedCountry],
+    });
   }
 
-  __onDispatch(action) {
-    switch (action.type) {
+  reduce(state, action) {
+    console.log('city store reduce');
+    switch (action.actionType) {
+      case ActionTypes.SELECTED_COUNTRY:
+        AppDispatcher.waitFor([CountryStore.getDispatchToken()]);
+        return this.getInitialState();
       case ActionTypes.SELECTED_CITY:
-        this.city = action.selectedCity;
-        this.__emitChange();
-        break;
+        return Object.freeze(Object.assign({}, state, {
+          selectedCity: action.selectedCity
+        }));
+      default:
+        return state;
     }
-  }
-
-  getCity() {
-    return this.city;
   }
 }
 
-// this store gets registered with AppDispatcher
 export default new CityStore(AppDispatcher);
