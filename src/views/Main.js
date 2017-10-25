@@ -22,7 +22,6 @@ class MainView extends React.Component {
   componentDidMount() {
     this.cityStoreToken = CityStore.addListener(() => {
       const cityStoreState = CityStore.getState();
-      console.log('city store listener');
       this.setState({
         city: cityStoreState.selectedCity,
         cityOptions: cityStoreState.cityOptions
@@ -31,7 +30,6 @@ class MainView extends React.Component {
 
     this.countryStoreToken = CountryStore.addListener(() => {
       const countryStoreState = CountryStore.getState();
-      console.log('country store listener');
       this.setState({
         country: countryStoreState.selectedCountry,
         countryOptions: countryStoreState.countryOptions

@@ -14,7 +14,6 @@ class CityStore extends ReduceStore {
   }
 
   reduce(state, action) {
-    console.log('city store reduce');
     switch (action.actionType) {
       case ActionTypes.SELECTED_COUNTRY:
         AppDispatcher.waitFor([CountryStore.getDispatchToken()]);

@@ -7,7 +7,8 @@ class AppDispatcher extends Dispatcher {
     super.dispatch(payload);
   */
   dispatch(action) {
-    console.log('dispatching action ' + action.actionType);
+    console.log('dispatching')
+    console.log(action.actionType);
     super.dispatch(action);
   }
 }
