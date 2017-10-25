@@ -16,6 +16,7 @@ class CityStore extends ReduceStore {
   reduce(state, action) {
     switch (action.actionType) {
       case ActionTypes.SELECTED_COUNTRY:
+        // defers execution until after CountryStore is done
         AppDispatcher.waitFor([CountryStore.getDispatchToken()]);
         return this.getInitialState();
       case ActionTypes.SELECTED_CITY:

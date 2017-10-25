@@ -8,7 +8,7 @@ class AppDispatcher extends Dispatcher {
   */
   dispatch(action) {
     console.log('dispatching')
-    console.log(action.actionType);
+    console.log(action);
     super.dispatch(action);
   }
 }

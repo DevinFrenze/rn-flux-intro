@@ -14,8 +14,7 @@ class CountryStore extends ReduceStore {
     });
   }
 
-  // this function responds to the actions relevant to this store
-  // and returns the new state
+  // this function responds to dispatched actions and returns the new state
   reduce(state, action) {
     switch (action.actionType) {
       case ActionTypes.SELECTED_COUNTRY:
@@ -29,4 +28,5 @@ class CountryStore extends ReduceStore {
 }
 
 // this store gets registered with AppDispatcher
+// this last line exports an instantiated store, thus the store is a singleton
 export default new CountryStore(AppDispatcher);
